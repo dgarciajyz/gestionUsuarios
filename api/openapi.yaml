@@ -1,0 +1,188 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: dgarciajyz@alumnos.unex.es
+    name: Proyectos de Investigacion
+    url: http://spilab.es/
+  description: Esta API provee los servicios necesarios para gestionar proyectos de
+    investigacion.
+  termsOfService: http://spilab.es/
+  title: Proyectos de Investigacion
+  version: "1.0"
+servers:
+- url: https://raw.githubusercontent.com/dgarciajyz/usuarios/master/None
+paths:
+  /user:
+    post:
+      description: Creacion de nuevos usuarios.
+      operationId: registroUsuarios
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+        required: true
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Registra un nuevo usuario
+      tags:
+      - Usuario
+      x-swagger-router-controller: Usuario
+  /user/login:
+    get:
+      description: Creacion de nuevos usuarios.
+      operationId: inicioSesionUsuarios
+      parameters:
+      - description: Nomber de usuario
+        explode: true
+        in: query
+        name: username
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Password del usuario
+        explode: true
+        in: query
+        name: password
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Devuelve
+      tags:
+      - Usuario
+      x-swagger-router-controller: Usuario
+  /user/logout:
+    get:
+      description: Cierra la sesion abierta por el usuario actual
+      operationId: logoutUsuario
+      responses:
+        201:
+          content:
+            text/plain:
+              schema:
+                example: Created
+                title: Created
+                type: string
+          description: Created
+        404:
+          content:
+            text/plain:
+              schema:
+                example: Not found
+                title: Endpoint not found
+                type: string
+          description: Not found response
+        405:
+          content:
+            text/plain:
+              schema:
+                example: The format is not valid
+                title: Invalid input
+                type: string
+          description: Invalid input
+      summary: Cierre de sesion
+      tags:
+      - Usuario
+      x-swagger-router-controller: Usuario
+components:
+  responses:
+    200:
+      content:
+        application/json:
+          schema:
+            items:
+              $ref: '#/components/schemas/Usuario'
+            type: array
+      description: Successful operation
+    201:
+      content:
+        text/plain:
+          schema:
+            example: Created
+            title: Created
+            type: string
+      description: Created
+    404:
+      content:
+        text/plain:
+          schema:
+            example: Not found
+            title: Endpoint not found
+            type: string
+      description: Not found response
+    405:
+      content:
+        text/plain:
+          schema:
+            example: The format is not valid
+            title: Invalid input
+            type: string
+      description: Invalid input
+  schemas:
+    Usuario:
+      example:
+        password: Administrador
+        idUsuario: 1
+        username: Administrador
+      properties:
+        idUsuario:
+          example: 1
+          format: int64
+          type: integer
+        username:
+          example: Administrador
+          type: string
+        password:
+          example: Administrador
+          type: string
+      type: object
